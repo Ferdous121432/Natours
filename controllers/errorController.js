@@ -7,7 +7,7 @@ const handleCastErrorDB = (err) => {
 
 const handleDuplicateFieldsDB = (err) => {
   const value = err.errmsg?.match(/(["'])(\\?.)*?\1/)?.[0] ?? '';
-  console.log(value);
+  // console.log(value);
   const message = `Duplicate field value: ${err.keyValue.name}. Please use another value!`;
   return new AppError(message, 400);
 };
@@ -15,7 +15,7 @@ const handleDuplicateFieldsDB = (err) => {
 const handleValidationErrorDB = (err) => {
   const errors = Object.values(err.errors).map((el) => el.message);
   const message = `Invalid input data. ${errors.join('. ')}`;
-  console.log(object.values(err.errors));
+  // console.log(object.values(err.errors));
   return new AppError(message, 400);
 };
 
@@ -95,8 +95,8 @@ module.exports = (err, req, res, next) => {
     if (error.name === 'TokenExpiredError')
       error = handleJWTTokenExpiredError();
 
-    console.log(err.message);
-    console.log(error.message);
+    // console.log(err.message);
+    // console.log(error.message);
 
     sendErrorProd(error, req, res);
   }
