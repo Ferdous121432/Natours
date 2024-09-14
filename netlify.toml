@@ -1,6 +1,2 @@
 [build]
-    publish = "./public/js"
-    command = "npm run build:js"
-
-[functions]
-    directory = "functions"
+functions = "functions"
