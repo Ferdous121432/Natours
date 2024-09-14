@@ -1,3 +1,3 @@
 [build]
-  publish = "./public/js"
+  publish = "dist"
   command = "npm run build:js"
