@@ -8,7 +8,9 @@
     "start:prod": "NODE_ENV=production nodemon server.js",
     "debug": "ndb server.js",
     "watch:js": "parcel watch ./public/js/index.js --out-dir ./public/js --out-file bundle.js",
-    "build:js": "parcel build ./public/js/index.js --out-dir dist --out-file bundle.js"
+    "build:js": "parcel build ./public/js/index.js --out-dir dist --out-file bundle.js",
+    "serverless": "netlify-lambda serve serverless.js",
+    "serverless:build": "netlify-lambda build serverless.js"
   },
   "author": "Ferdous",
   "license": "ISC",

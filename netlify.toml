@@ -3,4 +3,4 @@
     command = "npm run build:js"
 
 [functions]
-    directory = "./public/js"
+    directory = "functions"

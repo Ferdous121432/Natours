@@ -1,7 +1,7 @@
-/* eslint-disable prettier/prettier */
-const mongoose = require('mongoose');
-const dotenv = require('dotenv');
-const app = require('./app');
+import serverless from 'serverless-http';
+import mongoose from 'mongoose';
+import dotenv from 'dotenv';
+import app from './app';
 
 process.on('uncaughtException', (err) => {
   console.log(err.name, err.message);
@@ -28,14 +28,7 @@ mongoose
   });
 
 const port = process.env.PORT || 3000;
-const server = app.listen(port, () => {
-  console.log(`Server is running on port: ${port}`);
-});
 
-process.on('unhandledRejection', (err) => {
-  console.log(err.name, err.message);
-  console.log('UNHANDLED REJECTION! Shutting down...');
-  server.close(() => {
-    process.exit(1);
-  });
-});
+app.use('/.netlify', app);
+
+module.exports.handler = serverless(app);
