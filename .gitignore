@@ -8,5 +8,4 @@ dist/
 coverage/
 .cache/
 
-# Local Netlify folder
-.netlify
+
