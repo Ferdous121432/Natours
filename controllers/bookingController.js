@@ -1,13 +1,23 @@
-const stripe = require('stripe')(process.env.STRIPE_SECRET_KEY);
-const Booking = require('./../models/bookingModel');
-const Tour = require('./../models/tourModel');
-const catchAsync = require('./../utils/catchAsync');
-const AppError = require('./../utils/appError');
+const stripe = require('stripe')(
+  'sk_test_51PydHRHmFLUIiS12rSZ7SY9JZcSADD7FOvxHMmGnBUY7OUzsCwZSGbJCGlf4S8qllYHVOco72O6wHV44jsil3Mrm00LbJq8P8q',
+);
+// console.log('Booking controller ❌❌❌❌❌ stripe', stripe);
+
+// Ensure the Stripe secret key is set
+// if (!process.env.STRIPE_SECRET_KEY) {
+//   throw new Error('Stripe secret key is not set in environment variables.');
+// }
+
+const Tour = require('../models/tourModel');
+const Booking = require('../models/bookingModel');
+const catchAsync = require('../utils/catchAsync');
 const factory = require('./handlerFactory');
 
 exports.getCheckoutSession = catchAsync(async (req, res, next) => {
   // 1) Get the currently booked tour
   const tour = await Tour.findById(req.params.tourId);
+  console.log('Booking controller ❌❌❌❌❌ tour', tour);
+
   // 2) Create checkout session
   const session = await stripe.checkout.sessions.create({
     payment_method_types: ['card'],
@@ -35,7 +45,10 @@ exports.getCheckoutSession = catchAsync(async (req, res, next) => {
       },
     ],
   });
-  // 3) Send it to the client
+
+  console.log('Booking controller ❌❌❌❌❌', session);
+
+  // 3) Create session as response
   res.status(200).json({
     status: 'success',
     session,
@@ -45,12 +58,11 @@ exports.getCheckoutSession = catchAsync(async (req, res, next) => {
 exports.createBookingCheckout = catchAsync(async (req, res, next) => {
   // This is only TEMPORARY, because it's UNSECURE: everyone can make bookings without paying
   const { tour, user, price } = req.query;
-  if (!tour && !user && !price) return next();
-  await Booking.create({ tour, user, price }).then(() => {
-    res.redirect = req.originalUrl.split('?')[0];
-  });
 
-  next();
+  if (!tour && !user && !price) return next();
+  await Booking.create({ tour, user, price });
+
+  res.redirect(req.originalUrl.split('?')[0]);
 });
 
 exports.createBooking = factory.createOne(Booking);

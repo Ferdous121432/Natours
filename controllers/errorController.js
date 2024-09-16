@@ -29,7 +29,7 @@ const handleJWTTokenExpiredError = () => {
 
 const sendErrorDev = (err, req, res) => {
   if (req.originalUrl.startsWith('/api')) {
-    console.error('ERROR 💥', err);
+    console.error('ERROR 💥❌❌', err);
     return res.status(err.statusCode).json({
       status: err.status,
       error: err,
@@ -37,7 +37,7 @@ const sendErrorDev = (err, req, res) => {
       stack: err.stack,
     });
   } else {
-    console.error('ERROR 💥', err);
+    console.error('ERROR 💥❌', err);
 
     return res.status(err.statusCode).render('error', {
       title: 'Something went wrong!',
@@ -56,7 +56,7 @@ const sendErrorProd = (err, req, res) => {
         message: err.message,
       });
     }
-    console.error('ERROR 💥', err);
+    console.error('ERROR ❌💥', err);
     return res.status(500).json({
       status: 'error',
       message: 'Something went very wrong!',
@@ -64,13 +64,13 @@ const sendErrorProd = (err, req, res) => {
   }
   // B) Rendered website
   if (err.isOperational) {
-    console.error('ERROR 💥', err);
+    console.error('ERROR 😐😐💥', err);
     return res.status(err.statusCode).render('error', {
       title: 'Something went wrong!',
       msg: err.message,
     });
   }
-  console.error('ERROR 💥', err);
+  console.error('ERROR 😒😒💥', err);
 
   return res.status(err.statusCode).render('error', {
     title: 'Something went wrong!',

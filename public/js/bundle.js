@@ -6125,26 +6125,25 @@ var bookTour = /*#__PURE__*/function () {
       while (1) switch (_context.prev = _context.next) {
         case 0:
           _context.prev = 0;
-          _context.next = 3;
-          return axios__WEBPACK_IMPORTED_MODULE_1__["default"].get("http://127.0.0.1:3000/api/v1/bookings/checkout-session/".concat(tourId));
-        case 3:
+          console.log('😐😐😐 Tour ID: ', tourId);
+          // 1) Get checkout session from API
+          _context.next = 4;
+          return axios__WEBPACK_IMPORTED_MODULE_1__["default"].get("/api/v1/bookings/checkout-session/".concat(tourId));
+        case 4:
           session = _context.sent;
-          console.log(session);
-
-          // 2) Create checkout form + chanre credit card
           _context.next = 7;
           return stripe.redirectToCheckout({
             sessionId: session.data.session.id
           });
         case 7:
-          _context.next = 13;
+          _context.next = 12;
           break;
         case 9:
           _context.prev = 9;
           _context.t0 = _context["catch"](0);
-          console.log(_context.t0);
-          (0,_alerts__WEBPACK_IMPORTED_MODULE_0__.showAlert)('error', _context.t0);
-        case 13:
+          // console.log(err);
+          (0,_alerts__WEBPACK_IMPORTED_MODULE_0__.showAlert)('error 🐞', _context.t0);
+        case 12:
         case "end":
           return _context.stop();
       }
