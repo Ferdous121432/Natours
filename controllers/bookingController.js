@@ -28,13 +28,6 @@ exports.getCheckoutSession = catchAsync(async (req, res, next) => {
             images: [
               `${req.protocol}://${req.get('host')}/img/tours/${tour.imageCover}`,
             ],
-            metadata: {
-              duration: tour.duration,
-              difficulty: tour.difficulty,
-              maxGroupSize: tour.maxGroupSize,
-              ratingsAverage: tour.ratingsAverage,
-              ratingsQuantity: tour.ratingsQuantity,
-            },
           },
           unit_amount: tour.price * 100, // In stripe, currency is in cents
         },

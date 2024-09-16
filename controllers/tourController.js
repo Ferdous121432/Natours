@@ -75,7 +75,7 @@ exports.resizeTourImages = catchAsync(async (req, res, next) => {
 
 // CHECK BODY MIDDLEWARE
 exports.checkBody = (req, res, next) => {
-  // console.log('Check Body');
+  console.log('Check Body');
   if (!req.body.name || !req.body.price) {
     return res.status(400).json({
       status: 'fail',
@@ -222,7 +222,7 @@ exports.getToursWithin = catchAsync(async (req, res, next) => {
     );
   }
 
-  // console.log(distance, lat, lng);
+  console.log(distance, lat, lng);
 
   // Radius of the Earth in miles and kilometers
   const radius = unit === 'mi' ? distance / 3963.2 : distance / 6378.1;

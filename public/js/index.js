@@ -1,7 +1,7 @@
 /* eslint-disable */
 import '@babel/polyfill';
 import { login, logout } from './login';
-// import { updateUserData } from '../../controllers/viewController';
+import { updateUserData } from '../../controllers/viewController';
 import { updateSettings } from './updateSettings';
 import { bookTour } from './stripe';
 
@@ -63,7 +63,7 @@ if (updatePasswordForm) {
 if (bookBtn) {
   bookBtn.addEventListener('click', (e) => {
     e.target.textContent = 'Processing...';
-    const { tourId } = e.target.dataset;
+    const tourId = e.target.dataset.tourId;
     bookTour(tourId);
   });
 }
